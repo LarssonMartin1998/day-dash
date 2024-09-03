@@ -1,0 +1,76 @@
+Checks: >
+  -*,
+  clang-analyzer-*,
+  bugprone-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  readability-*,
+  readability-identifier-naming,
+  readability-function-cognitive-complexity,
+  readability-magic-numbers,
+  readability-redundant-smartptr-get,
+  readability-static-accessed-through-instance,
+  readability-container-size-empty,
+  misc-unused-parameters,
+  misc-unused-using-decls,
+  modernize-use-trailing-return-type,
+  modernize-avoid-c-arrays,
+  modernize-avoid-bind,
+  modernize-raw-string-literal,
+  modernize-make-unique,
+  modernize-use-nullptr,
+  modernize-use-auto,
+  modernize-use-override,
+  modernize-use-emplace,
+  modernize-redundant-void-arg,
+  modernize-use-default-member-init,
+  modernize-use-const,
+  modernize-use-constexpr,
+  modernize-concat-nested-namespaces,
+  cppcoreguidelines-avoid-magic-numbers,
+  cppcoreguidelines-const-correctness,
+  cppcoreguidelines-pro-type-member-init,
+  cppcoreguidelines-pro-bounds-constant-array-index,
+  cppcoreguidelines-pro-type-const-cast,
+  cppcoreguidelines-pro-type-cstyle-cast,
+  clang-analyzer-cplusplus*,
+  clang-analyzer-core*,
+  misc-misleading-indentation,
+  misc-macro-parentheses,
+  hicpp-no-assembler,
+  cppcoreguidelines-macro-usage
+
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*'
+CheckOptions:
+  - key: readability-identifier-naming.ClassCase
+    value: lower_case
+  - key: readability-identifier-naming.StructCase
+    value: lower_case
+  - key: readability-identifier-naming.EnumCase
+    value: lower_case
+  - key: readability-identifier-naming.EnumConstantCase
+    value: lower_case
+  - key: readability-identifier-naming.FunctionCase
+    value: lower_case
+  - key: readability-identifier-naming.VariableCase
+    value: lower_case
+  - key: readability-identifier-naming.ParameterCase
+    value: lower_case
+  - key: readability-identifier-naming.ClassMemberCase
+    value: lower_case
+  - key: readability-identifier-naming.PrivateMemberSuffix
+    value: ''  # No suffix
+  - key: readability-identifier-naming.StaticConstantCase
+    value: lower_case
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: lower_case
+  - key: readability-identifier-naming.NamespaceCase
+    value: lower_case
+  - key: readability-magic-numbers.IgnoredValues
+    value: '-1, 0, 1, 2, 10'
+  - key: readability-function-cognitive-complexity.Threshold
+    value: 15
+  - key: modernize-use-trailing-return-type.UseTrailingReturn
+    value: 1

@@ -1,0 +1,7 @@
+build/
+tests_build/
+.cache
+CMakeUserPresets.json
+.nvim-dap-profiles.toml
+.DS_Store
+compile_commands.json
