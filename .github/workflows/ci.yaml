@@ -32,8 +32,11 @@ jobs:
       - name: Clean previous builds
         run: make clean
 
+      # Make sure to set CMAKE_CCACHE to be empty as we don't want ccache on the runner as that doesn't make any sense.
+      # We might want to re-evaluate this down the road, even though we won't benefit from the cache, it might be worth
+      # having the build process as much 1:1 as possible to local development.
       - name: Setup and build dependencies
-        run: make deps BUILD_TYPE=${{ matrix.build_type }}
+        run: make deps BUILD_TYPE=${{ matrix.build_type }} CMAKE_CCACHE=
 
       - name: Run tests
         run: make test
