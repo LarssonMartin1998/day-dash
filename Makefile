@@ -42,18 +42,12 @@ build:
 .PHONY: test
 test:
 	@echo "Building the project..."
-	@$(BUILD_CMD)
+	@scan-build $(BUILD_CMD)
 	@echo "Building tests..."
-	@$(BUILD_TESTS_CMD)
+	@scan-build $(BUILD_TESTS_CMD)
 	@python3 combine_compile_commands.py
 	@echo "Running tests..."
 	@cd $(TESTS_BUILD_DIR) && $(CTEST) --output-on-failure
-
-# Analyze target
-.PHONY: analyze
-analyze:
-	@echo "Analyzing the project..."
-	@scan-build $(MAKE) build
 
 # Clean target
 .PHONY: clean

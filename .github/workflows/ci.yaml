@@ -1,0 +1,40 @@
+name: CI - Build and Test
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        build_type: [Debug, Release]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies (e.g., Conan, CMake, Ninja)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build cmake python3-pip clang-tools # Add other dependencies if needed
+          pip3 install conan
+          conan profile new default --detect --force  # Set up default conan profile if needed
+          conan profile update settings.compiler.libcxx=libstdc++11 default
+
+      - name: Clean previous builds
+        run: make clean
+
+      - name: Setup and build dependencies
+        run: make deps BUILD_TYPE=${{ matrix.build_type }}
+
+      - name: Run tests
+        run: make test

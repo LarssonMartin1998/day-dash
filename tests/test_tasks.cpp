@@ -2,4 +2,4 @@
 
 #include "day_dash_lib/tasks.hpp"
 
-TEST(atlas, entry) {}
+TEST(day_dash, entry) {}
