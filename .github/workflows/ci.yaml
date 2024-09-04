@@ -25,9 +25,9 @@ jobs:
       - name: Install dependencies (e.g., Conan, CMake, Ninja)
         run: |
           sudo apt-get update
-          sudo apt-get install -y ninja-build cmake python3-pip clang-tools # Add other dependencies if needed
+          sudo apt-get install -y ninja-build cmake python3-pip clang-tools
           pip3 install conan
-          conan profile new default --detect --force  # Set up default conan profile if needed
+          conan profile detect --force
           conan profile update settings.compiler.libcxx=libstdc++11 default
 
       - name: Clean previous builds
