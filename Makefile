@@ -6,7 +6,7 @@ CMAKE = cmake
 CMAKE_GENERATOR = Ninja
 CMAKE_CCACHE = -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
 CMAKE_TOOLCHAIN=conan_toolchain.cmake
-CMAKE_FLAGS = -DCMAKE_TOOLCHAIN_FILE=$(CMAKE_TOOLCHAIN) -G $(CMAKE_GENERATOR) $(CMAKE_CCACHE) -DCMAKE_CXX_FLAGS="-fcolor-diagnostics" -DCMAKE_C_FLAGS="-fcolor-diagnostics"
+CMAKE_FLAGS = -DCMAKE_TOOLCHAIN_FILE=$(CMAKE_TOOLCHAIN) -G $(CMAKE_GENERATOR) $(CMAKE_CCACHE)
 
 CONAN = conan
 CONAN_PROFILE ?= default  # Default profile, but can be overridden
@@ -42,18 +42,12 @@ build:
 .PHONY: test
 test:
 	@echo "Building the project..."
-	@$(BUILD_CMD)
+	@scan-build $(BUILD_CMD)
 	@echo "Building tests..."
-	@$(BUILD_TESTS_CMD)
+	@scan-build $(BUILD_TESTS_CMD)
 	@python3 combine_compile_commands.py
 	@echo "Running tests..."
 	@cd $(TESTS_BUILD_DIR) && $(CTEST) --output-on-failure
-
-# Analyze target
-.PHONY: analyze
-analyze:
-	@echo "Analyzing the project..."
-	@scan-build $(MAKE) build
 
 # Clean target
 .PHONY: clean

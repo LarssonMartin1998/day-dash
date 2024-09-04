@@ -1,0 +1,42 @@
+name: CI - Build and Test
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        build_type: [Debug, Release]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies (e.g., Conan, CMake, Ninja)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build cmake python3-pip clang-tools
+          pip3 install conan
+          conan profile detect --force
+
+      - name: Clean previous builds
+        run: make clean
+
+      # Make sure to set CMAKE_CCACHE to be empty as we don't want ccache on the runner as that doesn't make any sense.
+      # We might want to re-evaluate this down the road, even though we won't benefit from the cache, it might be worth
+      # having the build process as much 1:1 as possible to local development.
+      - name: Setup and build dependencies
+        run: make deps BUILD_TYPE=${{ matrix.build_type }} CMAKE_CCACHE=
+
+      - name: Run tests
+        run: make test
