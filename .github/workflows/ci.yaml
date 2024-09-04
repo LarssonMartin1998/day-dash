@@ -28,7 +28,6 @@ jobs:
           sudo apt-get install -y ninja-build cmake python3-pip clang-tools
           pip3 install conan
           conan profile detect --force
-          conan profile update settings.compiler.libcxx=libstdc++11 default
 
       - name: Clean previous builds
         run: make clean
